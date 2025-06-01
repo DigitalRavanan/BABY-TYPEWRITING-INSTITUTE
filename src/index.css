@@ -1,0 +1,172 @@
+/* Reset some default styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  background-color: #f8f9fa;
+  color: #333;
+  line-height: 1.6;
+  min-height: 100vh;
+}
+
+/* Container for page content */
+.container {
+  max-width: 960px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+/* Header */
+header {
+  background-color: #004aad;
+  color: white;
+  padding: 20px 0;
+  text-align: center;
+  font-size: 1.8rem;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+}
+
+/* Navigation menu */
+nav {
+  margin: 20px 0;
+  text-align: center;
+}
+
+nav a {
+  color: #004aad;
+  text-decoration: none;
+  margin: 0 15px;
+  font-weight: 600;
+  transition: color 0.3s ease;
+}
+
+nav a:hover {
+  color: #001f5b;
+}
+
+/* Course cards */
+.course-card {
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  padding: 20px;
+  margin-bottom: 20px;
+}
+
+.course-card h2 {
+  margin-bottom: 10px;
+  color: #004aad;
+}
+
+.course-card p {
+  font-size: 1rem;
+  color: #555;
+}
+
+/* Forms */
+form {
+  background: white;
+  padding: 25px 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  max-width: 500px;
+  margin: 20px auto;
+}
+
+form label {
+  display: block;
+  margin-bottom: 8px;
+  font-weight: 600;
+  color: #004aad;
+}
+
+form input[type="text"],
+form input[type="email"],
+form input[type="password"],
+form select,
+form textarea {
+  width: 100%;
+  padding: 10px 12px;
+  margin-bottom: 15px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+  transition: border-color 0.3s ease;
+}
+
+form input[type="text"]:focus,
+form input[type="email"]:focus,
+form input[type="password"]:focus,
+form select:focus,
+form textarea:focus {
+  outline: none;
+  border-color: #004aad;
+}
+
+/* Buttons */
+button,
+input[type="submit"] {
+  background-color: #004aad;
+  color: white;
+  padding: 12px 25px;
+  border: none;
+  border-radius: 5px;
+  font-weight: 700;
+  cursor: pointer;
+  transition: background-color 0.3s ease;
+}
+
+button:hover,
+input[type="submit"]:hover {
+  background-color: #001f5b;
+}
+
+/* Messages and alerts */
+.message-box {
+  background-color: #e9f0ff;
+  border: 1px solid #004aad;
+  padding: 15px 20px;
+  border-radius: 8px;
+  color: #004aad;
+  margin: 20px 0;
+  max-width: 600px;
+}
+
+/* Attendance and leave table */
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-bottom: 20px;
+}
+
+table th,
+table td {
+  padding: 12px 15px;
+  border: 1px solid #ddd;
+  text-align: left;
+}
+
+table th {
+  background-color: #004aad;
+  color: white;
+  font-weight: 600;
+}
+
+/* Responsive */
+@media (max-width: 600px) {
+  nav a {
+    display: block;
+    margin: 10px 0;
+  }
+
+  form {
+    width: 90%;
+  }
+}
