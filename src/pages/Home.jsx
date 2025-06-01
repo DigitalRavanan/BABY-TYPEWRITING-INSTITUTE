@@ -1,13 +1,36 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { motion } from "framer-motion";
+import { motion, useAnimation } from "framer-motion";
+import { useInView } from "react-intersection-observer";
 import { Swiper, SwiperSlide } from "swiper/react";
 import "swiper/css";
 
+import { FaUsers, FaBookOpen, FaAward } from "react-icons/fa";
+import { AiFillCheckCircle, AiOutlineLaptop } from "react-icons/ai";
+import { MdKeyboard, MdOutlineLanguage } from "react-icons/md";
+
 const stats = [
-  { label: "Students Trained", value: 1200 },
-  { label: "Courses Offered", value: 3 },
-  { label: "Years of Excellence", value: 15 },
+  { label: "Students Trained", value: 1200, icon: <FaUsers size={40} /> },
+  { label: "Courses Offered", value: 3, icon: <FaBookOpen size={40} /> },
+  { label: "Years of Excellence", value: 15, icon: <FaAward size={40} /> },
+];
+
+const courses = [
+  {
+    title: "English Typewriting",
+    desc: "Touch typing to improve speed and accuracy.",
+    icon: <MdOutlineLanguage size={36} />,
+  },
+  {
+    title: "Tamil Typewriting",
+    desc: "Master Tamil typing for exams and jobs.",
+    icon: <MdKeyboard size={36} />,
+  },
+  {
+    title: "Basic Computer Skills",
+    desc: "Learn MS Office, Email, Browsing & more.",
+    icon: <AiOutlineLaptop size={36} />,
+  },
 ];
 
 const testimonials = [
@@ -31,7 +54,9 @@ const galleryImages = [
   "https://source.unsplash.com/400x300/?students",
 ];
 
-const Counter = ({ end, label }) => {
+// Counter component unchanged, except moved icon outside to the stats section
+
+const Counter = ({ end, label, icon }) => {
   const [count, setCount] = React.useState(0);
   React.useEffect(() => {
     let start = 0;
@@ -46,20 +71,60 @@ const Counter = ({ end, label }) => {
   }, [end]);
 
   return (
-    <div
-      className="text-center px-6 py-4 rounded-2xl shadow-lg bg-white/10"
-    >
-      <div className="text-5xl font-extrabold text-white" style={{ textShadow: "3px 3px 6px black" }}>
+    <div className="text-center px-6 py-6 rounded-2xl shadow-lg bg-white/10 flex flex-col items-center gap-3">
+      <div className="text-teal-400">{icon}</div>
+      <div
+        className="text-5xl font-extrabold text-white"
+        style={{ textShadow: "3px 3px 6px black" }}
+      >
         {count}+
       </div>
-      <div className="mt-1 font-medium text-white" style={{ textShadow: "2px 2px 4px black" }}>
+      <div
+        className="mt-1 font-medium text-white"
+        style={{ textShadow: "2px 2px 4px black" }}
+      >
         {label}
       </div>
     </div>
   );
 };
 
+// Animation variants for scroll fade-up
+const fadeUp = {
+  hidden: { opacity: 0, y: 40 },
+  visible: { opacity: 1, y: 0, transition: { duration: 0.7 } },
+};
+
 const Home = () => {
+  // Setup controls and inView for each section to trigger animation on scroll
+  const [refHero, inViewHero] = useInView({ triggerOnce: true, threshold: 0.3 });
+  const [refStats, inViewStats] = useInView({ triggerOnce: true, threshold: 0.3 });
+  const [refCourses, inViewCourses] = useInView({ triggerOnce: true, threshold: 0.3 });
+  const [refTestimonials, inViewTestimonials] = useInView({ triggerOnce: true, threshold: 0.3 });
+  const [refGallery, inViewGallery] = useInView({ triggerOnce: true, threshold: 0.3 });
+
+  const controlsHero = useAnimation();
+  const controlsStats = useAnimation();
+  const controlsCourses = useAnimation();
+  const controlsTestimonials = useAnimation();
+  const controlsGallery = useAnimation();
+
+  React.useEffect(() => {
+    if (inViewHero) controlsHero.start("visible");
+  }, [inViewHero, controlsHero]);
+  React.useEffect(() => {
+    if (inViewStats) controlsStats.start("visible");
+  }, [inViewStats, controlsStats]);
+  React.useEffect(() => {
+    if (inViewCourses) controlsCourses.start("visible");
+  }, [inViewCourses, controlsCourses]);
+  React.useEffect(() => {
+    if (inViewTestimonials) controlsTestimonials.start("visible");
+  }, [inViewTestimonials, controlsTestimonials]);
+  React.useEffect(() => {
+    if (inViewGallery) controlsGallery.start("visible");
+  }, [inViewGallery, controlsGallery]);
+
   return (
     <div className="overflow-x-hidden">
       <div
@@ -76,67 +141,81 @@ const Home = () => {
 
         {/* Main content */}
         <div className="relative z-10 max-w-6xl mx-auto px-6 text-white">
-          {/* Hero */}
-          <section className="text-center py-24 max-w-4xl mx-auto">
+          {/* Hero Section */}
+          <motion.section
+            ref={refHero}
+            initial="hidden"
+            animate={controlsHero}
+            variants={fadeUp}
+            className="text-center py-24 max-w-4xl mx-auto"
+          >
             <motion.h1
               className="text-5xl md:text-6xl font-extrabold mb-6 tracking-wide"
               style={{ textShadow: "4px 4px 10px black" }}
-              initial={{ opacity: 0, y: -40 }}
-              animate={{ opacity: 1, y: 0 }}
-              transition={{ duration: 0.7 }}
             >
               Welcome to Baby Typewriting Institute
             </motion.h1>
-            <p className="text-xl mb-10 max-w-2xl mx-auto text-white/90" style={{ textShadow: "2px 2px 6px black" }}>
+            <motion.p
+              className="text-xl mb-10 max-w-2xl mx-auto text-white/90"
+              style={{ textShadow: "2px 2px 6px black" }}
+            >
               Learn English, Tamil Typewriting & Basic Computer Skills with expert guidance.
-            </p>
+            </motion.p>
             <Link to="/courses">
               <button className="px-8 py-3 bg-gradient-to-r from-teal-500 to-blue-600 rounded-full shadow-lg hover:from-blue-600 hover:to-teal-500 transition-transform transform hover:scale-105 focus:outline-none focus:ring-4 focus:ring-teal-300 text-white font-semibold">
                 Explore Courses
               </button>
             </Link>
-          </section>
+          </motion.section>
 
-          {/* Stats */}
-          <section className="py-16 grid grid-cols-1 md:grid-cols-3 gap-8 text-white">
-            {stats.map((s) => (
-              <Counter key={s.label} end={s.value} label={s.label} />
+          {/* Stats Section */}
+          <motion.section
+            ref={refStats}
+            initial="hidden"
+            animate={controlsStats}
+            variants={fadeUp}
+            className="py-16 grid grid-cols-1 md:grid-cols-3 gap-8 text-white"
+          >
+            {stats.map(({ label, value, icon }) => (
+              <Counter key={label} end={value} label={label} icon={icon} />
             ))}
-          </section>
+          </motion.section>
 
-          {/* Courses */}
-          <section className="py-20 text-center text-white">
+          {/* Courses Section */}
+          <motion.section
+            ref={refCourses}
+            initial="hidden"
+            animate={controlsCourses}
+            variants={fadeUp}
+            className="py-20 text-center text-white"
+          >
             <h2 className="text-4xl font-extrabold mb-12" style={{ textShadow: "3px 3px 8px black" }}>
               Our Courses
             </h2>
             <div className="grid md:grid-cols-3 gap-8 text-left">
-              {[
-                {
-                  title: "English Typewriting",
-                  desc: "Touch typing to improve speed and accuracy.",
-                },
-                {
-                  title: "Tamil Typewriting",
-                  desc: "Master Tamil typing for exams and jobs.",
-                },
-                {
-                  title: "Basic Computer Skills",
-                  desc: "Learn MS Office, Email, Browsing & more.",
-                },
-              ].map(({ title, desc }) => (
+              {courses.map(({ title, desc, icon }) => (
                 <div
                   key={title}
-                  className="bg-white/10 p-6 rounded-2xl shadow-xl hover:bg-white/20 transition-colors"
+                  className="bg-white/10 p-6 rounded-2xl shadow-xl hover:bg-white/20 transition-colors flex items-start gap-4"
                 >
-                  <h3 className="text-xl font-semibold mb-2 text-white">{title}</h3>
-                  <p className="text-sm text-gray-200">{desc}</p>
+                  <div className="text-teal-400 mt-1">{icon}</div>
+                  <div>
+                    <h3 className="text-xl font-semibold mb-2 text-white">{title}</h3>
+                    <p className="text-sm text-gray-200">{desc}</p>
+                  </div>
                 </div>
               ))}
             </div>
-          </section>
+          </motion.section>
 
-          {/* Testimonials */}
-          <section className="py-20 text-center rounded-3xl shadow-inner bg-black/60">
+          {/* Testimonials Section */}
+          <motion.section
+            ref={refTestimonials}
+            initial="hidden"
+            animate={controlsTestimonials}
+            variants={fadeUp}
+            className="py-20 text-center rounded-3xl shadow-inner bg-black/60"
+          >
             <h2 className="text-4xl font-extrabold mb-12 tracking-wide" style={{ textShadow: "3px 3px 8px black" }}>
               Student Feedback
             </h2>
@@ -149,18 +228,30 @@ const Home = () => {
             >
               {testimonials.map((t, i) => (
                 <SwiperSlide key={i}>
-                  <blockquote className="italic text-lg px-6 md:px-12 bg-black/30 rounded-xl py-6 shadow-lg text-white" style={{ textShadow: "2px 2px 6px black" }}>
+                  <blockquote
+                    className="italic text-lg px-6 md:px-12 bg-black/30 rounded-xl py-6 shadow-lg text-white"
+                    style={{ textShadow: "2px 2px 6px black" }}
+                  >
                     “{t.quote}”
                     <footer className="mt-4 font-semibold">— {t.author}</footer>
                   </blockquote>
                 </SwiperSlide>
               ))}
             </Swiper>
-          </section>
+          </motion.section>
 
-          {/* Gallery */}
-          <section className="py-16">
-            <h2 className="text-4xl font-extrabold text-center mb-12 text-white" style={{ textShadow: "3px 3px 8px black" }}>
+          {/* Gallery Section */}
+          <motion.section
+            ref={refGallery}
+            initial="hidden"
+            animate={controlsGallery}
+            variants={fadeUp}
+            className="py-16"
+          >
+            <h2
+              className="text-4xl font-extrabold text-center mb-12 text-white"
+              style={{ textShadow: "3px 3px 8px black" }}
+            >
               Gallery
             </h2>
             <div className="grid sm:grid-cols-3 gap-6 px-4">
@@ -174,7 +265,7 @@ const Home = () => {
                 />
               ))}
             </div>
-          </section>
+          </motion.section>
 
           {/* Footer */}
           <footer className="py-6 text-center text-sm mt-12 text-white bg-emerald-800 shadow-inner rounded-t-2xl">
