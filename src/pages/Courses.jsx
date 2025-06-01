@@ -1,30 +1,41 @@
 import React from "react";
 
-export default function Courses() {
+const courses = [
+  {
+    title: "English Typewriting",
+    description: "Touch typing to improve speed and accuracy.",
+  },
+  {
+    title: "Tamil Typewriting",
+    description: "Master Tamil typing for exams and jobs.",
+  },
+  {
+    title: "Basic Computer Skills",
+    description: "Learn MS Office, Email, Browsing & more.",
+  },
+];
+
+const Courses = () => {
   return (
-    <div className="p-6">
-      <h2 className="text-3xl font-bold text-center mb-6">Our Courses</h2>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-        <div className="bg-white shadow rounded-2xl p-4">
-          <h3 className="text-xl font-semibold mb-2">English Typewriting</h3>
-          <p>Learn English typewriting with professional guidance. Suitable for beginners and advanced learners.</p>
-        </div>
+    <div className="min-h-screen bg-gradient-to-br from-yellow-50 via-white to-yellow-100 p-8 font-sans">
+      <h1 className="text-4xl font-extrabold text-yellow-900 text-center mb-12">Available Courses</h1>
 
-        <div className="bg-white shadow rounded-2xl p-4">
-          <h3 className="text-xl font-semibold mb-2">Tamil Typewriting</h3>
-          <p>Master Tamil typewriting skills with the help of our experienced instructors.</p>
-        </div>
-
-        <div className="bg-white shadow rounded-2xl p-4">
-          <h3 className="text-xl font-semibold mb-2">Basic Computer Skills</h3>
-          <p>Develop essential computer knowledge including typing, internet use, MS Office, and more.</p>
-        </div>
-
-        <div className="bg-white shadow rounded-2xl p-4">
-          <h3 className="text-xl font-semibold mb-2">Typing Speed Improvement</h3>
-          <p>Special sessions to boost your typing speed and accuracy using modern software tools.</p>
-        </div>
+      <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-3 gap-10">
+        {courses.map((course, idx) => (
+          <div
+            key={idx}
+            className="bg-white bg-opacity-90 backdrop-blur-md rounded-3xl p-8 shadow-xl hover:shadow-2xl transition cursor-pointer"
+          >
+            <h2 className="text-2xl font-semibold text-yellow-800 mb-4">{course.title}</h2>
+            <p className="text-gray-700">{course.description}</p>
+            <button className="mt-6 w-full bg-yellow-600 hover:bg-yellow-700 text-white py-3 rounded-full font-semibold shadow-lg transition-transform transform hover:scale-105">
+              Enroll Now
+            </button>
+          </div>
+        ))}
       </div>
     </div>
   );
-}
+};
+
+export default Courses;

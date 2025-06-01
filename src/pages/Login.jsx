@@ -1,67 +1,69 @@
-// src/pages/Login.jsx
 import React, { useState } from "react";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth, db } from "../firebase";
-import { useNavigate } from "react-router-dom";
-import { ref, get } from "firebase/database";
+import { Link, useNavigate } from "react-router-dom";
+import { motion } from "framer-motion";
 
-export default function Login() {
+const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
   const navigate = useNavigate();
 
   const handleLogin = async (e) => {
     e.preventDefault();
-    setError("");
-
-    try {
-      const userCredential = await signInWithEmailAndPassword(auth, email, password);
-      const user = userCredential.user;
-
-      // Check approval status
-      const snapshot = await get(ref(db, `students/${user.uid}`));
-      const studentData = snapshot.val();
-
-      if (studentData && studentData.approved) {
-        navigate("/student-dashboard");
-      } else {
-        navigate("/not-approved");
-      }
-    } catch (err) {
-      setError("Login failed. Please check your credentials.");
-      console.error(err);
-    }
+    // Firebase login logic will come here
   };
 
   return (
-    <div className="max-w-md mx-auto p-6 border rounded mt-12">
-      <h2 className="text-2xl font-bold mb-4 text-center">Student Login</h2>
-      {error && <p className="mb-4 text-red-600">{error}</p>}
-      <form onSubmit={handleLogin} className="flex flex-col space-y-4">
+    <div className="min-h-screen bg-gradient-to-br from-blue-50 via-white to-blue-100 flex items-center justify-center px-6">
+      <motion.form
+        onSubmit={handleLogin}
+        className="bg-white bg-opacity-80 backdrop-blur-md rounded-3xl shadow-xl max-w-md w-full p-10"
+        initial={{ opacity: 0, y: -50 }}
+        animate={{ opacity: 1, y: 0 }}
+        transition={{ duration: 0.7, ease: "easeOut" }}
+      >
+        <h2 className="text-3xl font-extrabold text-blue-900 mb-8 text-center">
+          Student Login
+        </h2>
+
+        <label className="block text-gray-700 mb-2 font-semibold">Email</label>
         <input
           type="email"
-          placeholder="Student Email"
+          required
           value={email}
           onChange={(e) => setEmail(e.target.value)}
-          required
-          className="border p-2 rounded"
+          className="w-full p-3 mb-6 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="student@example.com"
         />
+
+        <label className="block text-gray-700 mb-2 font-semibold">Password</label>
         <input
           type="password"
-          placeholder="Password"
+          required
           value={password}
           onChange={(e) => setPassword(e.target.value)}
-          required
-          className="border p-2 rounded"
+          className="w-full p-3 mb-8 rounded-lg border border-gray-300 focus:outline-none focus:ring-2 focus:ring-blue-500"
+          placeholder="Your password"
         />
-        <button
+
+        <motion.button
           type="submit"
-          className="bg-blue-600 text-white p-2 rounded hover:bg-blue-700"
+          className="w-full bg-gradient-to-r from-blue-600 to-teal-500 text-white py-3 rounded-full font-semibold shadow-lg"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+          transition={{ type: "spring", stiffness: 300 }}
         >
           Login
-        </button>
-      </form>
+        </motion.button>
+
+        <p className="text-center mt-6 text-gray-600">
+          Don't have an account?{" "}
+          <Link to="/Register" className="text-blue-700 font-semibold hover:underline">
+            Register here
+          </Link>
+        </p>
+      </motion.form>
     </div>
   );
-}
+};
+
+export default Login;

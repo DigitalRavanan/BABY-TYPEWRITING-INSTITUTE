@@ -1,0 +1,116 @@
+/* Base styles */
+body {
+  font-family: 'Poppins', sans-serif;
+  background-color: #F5F7FA;
+  color: #333333;
+  margin: 0;
+  padding: 0;
+}
+
+/* Container to wrap your content */
+.container {
+  max-width: 1200px;
+  margin: 20px auto;
+  padding: 20px;
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0,0,0,0.1);
+}
+
+/* Buttons */
+.btn-primary {
+  background: linear-gradient(135deg, #4A90E2, #1ABC9C);
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.3s ease;
+  display: inline-block;
+  text-align: center;
+  text-decoration: none;
+  user-select: none;
+}
+
+.btn-primary:hover {
+  background: linear-gradient(135deg, #1ABC9C, #4A90E2);
+}
+
+/* Headings */
+h1, h2, h3 {
+  font-weight: 700;
+  color: #1A1A1A;
+  margin-bottom: 1rem;
+}
+
+/* Card style */
+.card {
+  background: white;
+  border-radius: 12px;
+  box-shadow: 0 4px 12px rgba(26, 188, 156, 0.15);
+  padding: 20px;
+  margin-bottom: 20px;
+  transition: transform 0.3s ease;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+/* Links */
+a {
+  color: #4A90E2;
+  text-decoration: none;
+  font-weight: 600;
+}
+
+a:hover {
+  text-decoration: underline;
+}
+
+/* Inputs and form */
+input[type="text"],
+input[type="email"],
+input[type="password"],
+select,
+textarea {
+  padding: 12px 15px;
+  border-radius: 8px;
+  border: 1px solid #ccc;
+  width: 100%;
+  box-sizing: border-box;
+  font-family: 'Poppins', sans-serif;
+  font-size: 1rem;
+  margin-bottom: 15px;
+  transition: border-color 0.3s ease;
+}
+
+input[type="text"]:focus,
+input[type="email"]:focus,
+input[type="password"]:focus,
+select:focus,
+textarea:focus {
+  border-color: #1ABC9C;
+  outline: none;
+}
+
+/* Navbar (optional) */
+.navbar {
+  background: #1ABC9C;
+  padding: 10px 20px;
+  color: white;
+  font-weight: 600;
+  border-radius: 0 0 12px 12px;
+  box-shadow: 0 3px 8px rgba(0, 0, 0, 0.12);
+  margin-bottom: 30px;
+}
+
+.navbar a {
+  color: white;
+  margin-right: 15px;
+}
+
+.navbar a:hover {
+  text-decoration: underline;
+}

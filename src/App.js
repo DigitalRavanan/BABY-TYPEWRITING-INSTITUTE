@@ -5,6 +5,7 @@ import Courses from "./pages/Courses";
 import Register from "./pages/Register";
 import Login from "./pages/Login";
 import StudentDashboard from "./pages/StudentDashboard";
+import './theme.css';
 import AdminDashboard from "./pages/AdminDashboard";
 import NotApproved from "./pages/NotApproved";
 import AdminLogin from "./pages/AdminLogin";
