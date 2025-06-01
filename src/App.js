@@ -7,10 +7,16 @@ import Login from "./pages/Login";
 import StudentDashboard from "./pages/StudentDashboard";
 import './theme.css';
 import AdminDashboard from "./pages/AdminDashboard";
+import StudentManagement from "./pages/StudentManagement";
+import LeaveApprovals from "./pages/LeaveApprovals";
 import NotApproved from "./pages/NotApproved";
 import AdminLogin from "./pages/AdminLogin";
 import ProtectedRoute from "./components/ProtectedRoute";
 import Navbar from "./components/Navbar";
+import AttendancePage from "./pages/AttendancePage";
+import LeavePage from "./pages/LeavePage";
+import ProfilePage from "./pages/ProfilePage";
+import StudentMessages from "./pages/StudentMessages";
 
 function App() {
   return (
@@ -23,7 +29,10 @@ function App() {
         <Route path="/login" element={<Login />} />
         <Route path="/admin-login" element={<AdminLogin />} />
         <Route path="/not-approved" element={<NotApproved />} />
-        
+        <Route path="/attendance" element={<AttendancePage />} />
+        <Route path="/leave" element={<LeavePage />} />
+        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/admin/messages" element={<StudentMessages />} />
         <Route path="/student-dashboard" element={
           <ProtectedRoute>
             <StudentDashboard />
@@ -35,6 +44,8 @@ function App() {
             <AdminDashboard />
           </ProtectedRoute>
         }/>
+        <Route path="/admin/students" element={<StudentManagement />} />
+        <Route path="/admin/leave-approvals" element={<LeaveApprovals />} />
       </Routes>
     </Router>
   );

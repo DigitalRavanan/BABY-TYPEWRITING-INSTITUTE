@@ -1,15 +1,29 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase";
 
 const AdminLogin = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
 
-  const handleLogin = (e) => {
+  const handleLogin = async (e) => {
     e.preventDefault();
-    // Your admin auth logic here
-    // On success: navigate("/admin-dashboard");
+    try {
+      const userCredential = await signInWithEmailAndPassword(auth, email, password);
+      const user = userCredential.user;
+
+      // Only allow the specific admin email to proceed
+      if (user.email === "vijayanharish525@gmail.com") {
+        navigate("/admin-dashboard");
+      } else {
+        alert("You are not authorized as admin.");
+        await auth.signOut(); // sign out if not admin
+      }
+    } catch (error) {
+      alert("Login failed: " + error.message);
+    }
   };
 
   return (

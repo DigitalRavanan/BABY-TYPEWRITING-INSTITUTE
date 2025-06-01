@@ -1,15 +1,27 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import { motion } from "framer-motion";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../firebase"; // adjust the path if needed
 
 const Login = () => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const navigate = useNavigate();
+  const [error, setError] = useState("");
 
   const handleLogin = async (e) => {
     e.preventDefault();
     // Firebase login logic will come here
+  setError("");
+
+    try {
+      await signInWithEmailAndPassword(auth, email, password);
+      navigate("/student-dashboard"); // redirect after login
+    } catch (err) {
+      console.error("Login failed:", err);
+      setError("Invalid email or password. Please try again.");
+    }
   };
 
   return (
